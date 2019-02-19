@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, session, request, redirect
 from util import json_response
 
 import data_handler
@@ -13,6 +13,12 @@ def index():
     This is a one-pager which shows all the boards and cards
     """
     return render_template('index.html')
+
+
+@app.route('/signup', methods=['POST'])
+def route_sign_up():
+    data_handler.sign_up(request.form['username'], request.form['password'])
+    return redirect(url_for('index'))
 
 
 @app.route("/get-boards")
