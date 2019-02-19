@@ -11,6 +11,15 @@ def sign_up(cursor, username, password):
     """, {"username": username, "password": security.hash_password(password)})
 
 
+@connection.connection_handler
+def sign_in(cursor, username, password):
+    cursor.execute("""
+        SELECT id, username, password from users
+        WHERE username = %(username)s
+    """, {"username": username, "password": password})
+    return cursor.fetchone()
+
+
 def get_card_status(status_id):
     """
     Find the first status matching the given id
