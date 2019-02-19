@@ -1,3 +1,48 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+body {
+    font-family: Lato sans-serif;
+}
+
+
 #boards {
     background-color: green;
+}
+
+.logged-in-message {
+    color: dodgerblue;
+}
+
+#container {
+    align-items: center;
+}
+
+.row {
+    padding-top: 1rem;
+}
+
+.cards {
+    border-radius: 4%;
+    height: 300px;
+    background-color: dodgerblue;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.col-12 {
+    padding-top: 8rem;
+}
+
+.card-header {
+    background-color: dodgerblue;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+#headingOne {
+    background-color: dodgerblue;
+}
+
+.card-title {
+    color: white;
 }

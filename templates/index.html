@@ -36,7 +36,7 @@
                 <div class="navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="navbar-nav">
-                            <a class="nav-link" href="#">Logged in as {{ session['username'] }}</a>
+                            <div class="logged-in-message">Logged in as {{ session['username'] }}</div>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +52,49 @@
         </div>
         <div id="container">
 
+        <div class="col-12">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header text-white" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    BOARD ONE
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    <div class="button-row">
+                        <button type="button" class="btn btn-primary">New card</button>
+                    </div>
+                    <div class="row text-center">
+
+                        <div class="col-3 col-md cards m-1">
+
+                        </div>
+
+                        <div class="col-3 col-md cards m-1">
+
+                        </div>
+
+                        <div class="col-3 col-md cards m-1">
+
+                        </div>
+
+                        <div class="col-3 col-md cards m-1">
+
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
+
+
+
+        </div>
+
+    <!-- START OF THE MODALS -->
+
     <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -108,7 +150,11 @@
                 </form>
             </div>
         </div>
-    </div>    </body>
+    </div>
+
+    <!-- END OF THE MODALS -->
+
+    </body>
 </html>
 
 
