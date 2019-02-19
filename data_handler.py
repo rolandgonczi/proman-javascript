@@ -1,4 +1,23 @@
 import persistence
+import connection
+import security
+
+
+@connection.connection_handler
+def sign_up(cursor, username, password):
+    cursor.execute("""
+        INSERT INTO users (username, password)
+        VALUES (%(username)s, %(password)s)
+    """, {"username": username, "password": security.hash_password(password)})
+
+
+@connection.connection_handler
+def sign_in(cursor, username, password):
+    cursor.execute("""
+        SELECT id, username, password from users
+        WHERE username = %(username)s
+    """, {"username": username, "password": password})
+    return cursor.fetchone()
 
 
 def get_card_status(status_id):
