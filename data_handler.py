@@ -2,6 +2,7 @@ import persistence
 import connection
 import security
 
+"""USERS"""
 
 @connection.connection_handler
 def sign_up(cursor, username, password):
@@ -19,18 +20,21 @@ def sign_in(cursor, username, password):
     """, {"username": username, "password": password})
     return cursor.fetchone()
 
+"""END OF USERS"""
+
+"""CARDS"""
 
 @connection.connection_handler
-def add_new_card(cursor, card_name, board_column_id, position):
-    cursor.execute("""INSERT INTO cards (title, board_column_id, position)
-                      VALUES (%(card_name)s, %(board_column_id)s, %(position)s)""", {'card_name': card_name, 'board_column_id': board_column_id, 'position': position})
+def add_new_card(cursor, card_name, status_id, position):
+    cursor.execute("""INSERT INTO cards (title, status_id, position)
+                      VALUES (%(card_name)s, %(status_id)s, %(position)s)""", {'card_name': card_name, 'status_id': status_id, 'position': position})
 
 
 @connection.connection_handler
-def update_card_board_column_id(cursor, card_id, new_board_column_id):
+def update_card_board_column_id(cursor, card_id, status_id):
     cursor.execute("""UPDATE cards
-                      SET board_column_id = %(new_board_column_id)s
-                      WHERE id = %(card_id)s""", {'new_board_column_id': new_board_column_id, 'card_id': card_id})
+                      SET status_id = %(status_id)s
+                      WHERE id = %(card_id)s""", {'new_board_column_id': status_id, 'card_id': card_id})
 
 
 @connection.connection_handler
@@ -40,6 +44,16 @@ def update_card_positions(cursor, ids_and_positions):
                           SET position = %(position)s
                           WHERE id = %(card_id)s""",
                           {'position': int(position), 'card_id': int(ids_and_positions.get(position))})
+
+"""END OF CARDS"""
+
+"""DELETE"""
+
+@connection.connection_handler
+def delete_cards(cursor, _id):
+    cursor.execute("""DELETE FROM cards
+                              WHERE id = %(_id)s""", {'_id': _id})
+
 
 
 def get_card_status(status_id):
