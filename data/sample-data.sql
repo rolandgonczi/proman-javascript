@@ -361,7 +361,7 @@ CREATE UNIQUE INDEX cards_id_uindex ON public.cards USING btree (id);
 -- Name: cards_order_uindex; Type: INDEX; Schema: public; Owner: erika
 --
 
-CREATE UNIQUE INDEX cards_order_uindex ON public.cards USING btree ("order");
+CREATE UNIQUE INDEX cards_order_uindex ON public.cards USING btree (position);
 
 
 --
