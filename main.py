@@ -1,10 +1,12 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, session, redirect, request
 from util import json_response
 
 import data_handler
 import security
 
 app = Flask(__name__)
+
+app.secret_key = b'r[_Drea+%!"edCElf>>,'
 
 
 @app.route("/")
@@ -15,8 +17,25 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/signup', methods=['POST'])
+def route_sign_up():
+    data_handler.sign_up(request.form['username'], request.form['password'])
+    return redirect(url_for('index'))
 
 
+@app.route('/signin', methods=['POST'])
+def route_sign_in():
+    user_details = data_handler.sign_in(request.form['username'], request.form['password'])
+    if user_details is not None and security.verify_password(request.form['password'], user_details['password']):
+        session['user_id'] = user_details['id']
+        session['username'] = user_details['username']
+    return redirect(url_for('index'))
+
+
+@app.route('/logout', methods=['GET'])
+def route_logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 
 @app.route("/get-boards")

@@ -56,20 +56,47 @@ export let dom = {
     // here comes more features
 };
 
-function collapse() {
-    let coll = document.getElementsByClassName("collapsible");
+const createTable = function(title) {
+    const template = document.querySelector('#board-template');
+    const clone = document.importNode(template.content, true)
+    const datSet = document.querySelector('#headingOne');
 
-for (let i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    let content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
-  });
+
+    clone.querySelector('#headingOne').textContent = title;
+
+    return clone
+
+};
+
+const createCard = function (title) {
+    const cardTemplate = document.querySelector('#card-template')
+    const clone = document.importNode(cardTemplate.content, true)
+
+    clone.querySelector('#card-title').textContent = title;
+    return clone
+}
+function getTitle () {
+    let title = prompt("Please enter your board name", "Harry Potter");
+    if (title != null) {
+        return title;
+        }
+    return null
+}
+function getCard(){
+    let toDo = getTitle()
+    const firstCard = createCard(toDo)
+    document.querySelector('.new-card').appendChild(firstCard);
 }
 
+function createBoard() {
+    let title = getTitle();
+    const createElement = createTable(title);
+    document.querySelector('#container').appendChild(createElement);
+
 }
-collapse();
+
+document.getElementById('new-board').addEventListener('click', createBoard);
+document.getElementById('new-card').addEventListener('click', getCard);
+
+// const firstCard = createCard('How you doing')
+// document.querySelector('.new-card').appendChild(firstCard);

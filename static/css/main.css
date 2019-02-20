@@ -1,58 +1,48 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+body {
+    font-family: Lato sans-serif;
+}
+
+
 #boards {
     background-color: green;
 }
 
-.abs-center-x {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-
-}
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
+.logged-in-message {
+    color: dodgerblue;
 }
 
-.active, .collapsible:hover {
-  background-color: #555;
+#container {
+    align-items: center;
 }
 
-.content {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background-color: #f1f1f1;
+.row {
+    padding-top: 1rem;
+}
+
+.cards {
+    border-radius: 4%;
+    height: 300px;
+    background-color: dodgerblue;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
-.column {
-  height:10em;
-  float:left;
-  width:21%;
-  padding:1%;
-  margin:0 1%;
-  background:grey;
-
+.col-12 {
+    padding-top: 8rem;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-{
-  box-sizing: border-box;
+.card-header {
+    background-color: dodgerblue;
+    font-weight: 700;
+    font-size: 2rem;
 }
 
-.card{
-    background-color: white;
+#headingOne {
+    background-color: dodgerblue;
+}
+
+.card-title {
+    color: white;
 }

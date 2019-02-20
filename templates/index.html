@@ -13,58 +13,161 @@
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='main.js') }}" defer></script>        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     </head>
     <body>
         <div>
             <nav class="navbar navbar-expand-lg bg-light navbar-light">
+            <a class="navbar-brand" href="#">
+                <img src="static/favicon/favicon-96x96.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                ProMan
+          </a>
             <div>
                 <ul class="navbar-nav">
-                    {% if session['id'] %}
+                    {% if session['user_id'] %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="{{ url_for('route_logout') }}">Logout</a>
                     </li>
                 </ul>
             </div>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="navbar-nav">
-                            <a class="nav-link" href="#">Logged in as {{ session['username'] }}</a>
+                            <div class="logged-in-message">Logged in as {{ session['username'] }}</div>
                         </li>
                     </ul>
                 </div>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/register">Registration</a>
+                        <a class="nav-link" data-toggle="modal" data-target="#registrationModal">Registration</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a>
                     </li>
                     {% endif%}
-            <div>
-                <ul class="nav abs-center-x">
-                    <li class="nav-item">
-                        <h1 class="nav-link">ProMan</h1>
-                    </li>
-                </ul>
-            </div>
+                <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <button class="btn btn-primary" id="new-board">Create a New Board</button>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
+
         <div id="container">
-            <div>
-                <button class="collapsible">Open Section 3</button>
-                <div class="content row">
-                    <div class="column"><h1>New Card</h1>
-                        <div class="card">Lorem ipsum dolor sit amet, consectetur adipisicing elit,</div>
+            <template id="board-template">
+            <div class="col-12">
+                <div id="accordion">
+                    <div class="card">
+                    <div class="card-header text-white" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     </div>
-                    <div class="column">
-                        <div class="card">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                      <div class="button-row">
+                        <button type="button" class="btn btn-primary" id="new-card">New card</button>
+                        </div>
+                      <div class="row text-center">
+
+                        <div class="col-3 col-md cards m-1 new-card">
+                            <div class="card-header">New Card</div>
+                        </div>
+
+                        <div class="col-3 col-md cards m-1">
+                            <div class="card-header">In progress</div>
+                        </div>
+
+                        <div class="col-3 col-md cards m-1">
+                            <div class="card-header">Testing</div>
+                        </div>
+
+                        <div class="col-3 col-md cards m-1">
+                            <div class="card-header">Done</div>
+                        </div>
+
                     </div>
-                    <div class="column">exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</div>
-                    <div class="column">Ut enim ad minim veniam, quis nostrud .</div>
+                  </div>
                 </div>
+              </div>
             </div>
         </div>
+        </template>
+        <template id="card-template">
+        <div class="card text-white bg-secondary mb-3 todo">
+            <p id="card-title"></p>
+        </div>
+        </template>
+
+        </div>
+
+    <!-- START OF THE MODALS -->
+
+    <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registrationModalLabel">Sign up:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="signup-form" method="post" action="{{ url_for('route_sign_up') }}" role="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="signup-username">Username:</label>
+                            <input type="text" class="form-control" id="signup-username" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password:</label>
+                            <input type="password" class="form-control" id="signup-password" name="password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Sign up</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Sign in:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="signin-form" method="post" action="{{ url_for('route_sign_in') }}" role="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="signin-username">Username:</label>
+                            <input type="text" class="form-control" id="signin-username" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="signin-password">Password:</label>
+                            <input type="password" class="form-control" id="signin-password" name="password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- END OF THE MODALS -->
+
     </body>
 </html>
