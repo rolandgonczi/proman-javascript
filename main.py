@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, session, redirect, request
 from util import json_response
+import json
 
 import data_handler
 import security
@@ -16,6 +17,7 @@ def index():
     """
     return render_template('index.html')
 
+"""USER HANDLING"""
 
 @app.route('/signup', methods=['POST'])
 def route_sign_up():
@@ -36,6 +38,34 @@ def route_sign_in():
 def route_logout():
     session.clear()
     return redirect(url_for('index'))
+
+"""END OF USER HANDLING"""
+
+"""CARD HANDLING"""
+
+@app.route('/card', methods=['POST'])
+def add_new_card():
+    card_name = request.json.get('cardName')
+    board_column_id = request.json.get('boardColumnId')
+    position = request.json.get('position')
+    data_handler.add_new_card(card_name, board_column_id, position)
+    return json.dumps({'attempt': 'successful'})
+
+
+@app.route('/update-card-column-id', methods=['POST'])
+def update_card_board_column_id():
+    new_board_column_id = request.json.get('newBoardColumnId')
+    card_id = request.json.get('cardId')
+    data_handler.update_card_board_column_id(card_id, new_board_column_id)
+    return json.dumps({'attempt': 'successful'})
+
+
+@app.route('/update-card-positions', methods=['POST'])
+def update_card_positions():
+    data_handler.update_card_positions(request.json)
+    return json.dumps({'attempt': 'successful'})
+
+"""END OF CARD HANDLING"""
 
 
 @app.route("/get-boards")

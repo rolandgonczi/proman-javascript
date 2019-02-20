@@ -9,6 +9,10 @@ body {
     background-color: green;
 }
 
+.navbar {
+    font-weight: 700;
+}
+
 .logged-in-message {
     color: dodgerblue;
 }
