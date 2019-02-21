@@ -102,7 +102,7 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
 
-    return data_handler.get_cards_for_board(board_id)
+    return data_handler.get_cards_by_board_id(board_id)
 
 
 def main():
