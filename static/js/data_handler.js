@@ -18,13 +18,14 @@ export let data_handler = {
             for (let board of data) {
                 dom.createBoard(board)
             }
-        }), get_cards: fetch('http://127.0.0.1:5000/1')  // set the path; the method is GET by default, but can be modified with a second parameter
-        .then((response) => response.json())  // parse JSON format into JS object
-        .then((data) => {
-            for (let cards of data) {
-                dom.showCards(cards)
-            }
-        }),
+            // }), get_cards: fetch('http://127.0.0.1:5000/1')  // set the path; the method is GET by default, but can be modified with a second parameter
+            // .then((response) => response.json())  // parse JSON format into JS object
+            // .then((data) => {
+            //     for (let cards of data) {
+            //         dom.showCards(cards)
+            //     }
+            // }),
+        })
 }
 
 // //this object contains the functions which handle the data and its reading/writing

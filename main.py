@@ -76,16 +76,16 @@ def get_boards():
     All the boards
     """
     title = data_handler.get_all_boards()
+    print(title)
     return title
 
 
 @app.route("/new-board", methods=['GET', 'POST'])
-@json_response
 def add_board():
     if request.method == 'POST':
         board_title = request.form['title']
         data_handler.add_new_board(board_title)
-        return render_template(url_for('index'), board_title=board_title)
+        return redirect(url_for('index'))
 
 
 @app.route("/delete-board/<int:board_id>")
