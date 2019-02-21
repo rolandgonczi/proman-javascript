@@ -75,7 +75,8 @@ def get_boards():
     """
     All the boards
     """
-    title = data_handler.get_boards()
+    title = data_handler.get_all_boards()
+    print(title)
     return title
 
 

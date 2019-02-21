@@ -5,7 +5,7 @@ import {data_handler} from "./data_handler.js";
 const createTable = function(title) {
     const template = document.querySelector('#board-template');
     const clone = document.importNode(template.content, true);
-    clone.querySelector('#headingOne').textContent = title;
+    clone.querySelector('#heading-1').textContent = title;
 
     return clone
 

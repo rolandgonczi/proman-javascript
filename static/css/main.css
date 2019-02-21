@@ -37,15 +37,13 @@ body {
     padding-top: 8rem;
 }
 
-.card-header {
+.card .card-header {
     background-color: dodgerblue;
     font-weight: 700;
+    color: white;
     font-size: 2rem;
 }
 
-#headingOne {
-    background-color: dodgerblue;
-}
 
 .card-title {
     color: white;
