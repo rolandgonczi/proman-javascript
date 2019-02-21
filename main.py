@@ -51,7 +51,7 @@ def add_new_card():
     board_id = request.form['board-modal-id']
     status_id = 0
     data_handler.add_new_card(card_title, board_id, status_id)
-    return card_title
+    return redirect(url_for('index'))
     """
     card_name = request.json.get('cardName')
     board_column_id = request.json.get('boardColumnId')
