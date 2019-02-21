@@ -74,10 +74,9 @@ def get_all_boards(cursor):
 @connection.connection_handler
 def add_new_board(cursor, board_title):
     cursor.execute("""
-                    INSERT into boards (title) VALUES %(board_title)s;
+                    INSERT into boards (title) VALUES (%(board_title)s);
                     """,
                    {'board_title': board_title})
-    return cursor.fetchone()
 
 
 @connection.connection_handler
@@ -86,7 +85,7 @@ def delete_board(cursor, board_id):
                     SELECT id FROM cards
                     WHERE board_id = %(id)s;
                     """,
-                   {'id': board_id})
+                   {"id": board_id})
     card_ids = cursor.fetchall()
     for card_id in card_ids:
         cursor.execute("""
