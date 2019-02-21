@@ -29,9 +29,9 @@ def sign_in(cursor, username, password):
 """CARDS"""
 
 @connection.connection_handler
-def add_new_card(cursor, card_name, status_id, position):
-    cursor.execute("""INSERT INTO cards (title, status_id, position)
-                      VALUES (%(card_name)s, %(status_id)s, %(position)s)""", {'card_name': card_name, 'status_id': status_id, 'position': position})
+def add_new_card(cursor, card_name, board_id, status_id):
+    cursor.execute("""INSERT INTO cards (title, board_id, status_id)
+                      VALUES (%(card_name)s, %(board_id)s, %(status_id)s)""", {'card_name': card_name, 'board_id': board_id, 'status_id': status_id})
 
 
 @connection.connection_handler
@@ -103,6 +103,32 @@ def delete_board(cursor, board_id):
                     DELETE FROM boards WHERE id = %(board_id)s;
                     """,
                    {'board_id': board_id})
+
+
+@connection.connection_handler
+def delete(cursor, subject, _id):
+    if subject == 'board':
+        cursor.execute("""SELECT cards.id AS id
+                          FROM boards
+                          JOIN statuses ON board_columns.board_id = boards.id
+                          JOIN cards ON cards.board_column_id = board_columns.id
+                          WHERE boards.id = %(_id)s""", {'_id': _id})
+        rows = cursor.fetchall()
+        for row in rows:
+            cursor.execute("""DELETE FROM cards
+                              WHERE id = %(card_id)s""", {'card_id': int(row.get('id'))})
+        cursor.execute("""DELETE FROM statuses
+                          WHERE id = %(_id)s""", {'_id': _id})
+        cursor.execute("""DELETE FROM boards
+                          WHERE id = %(_id)s""", {'_id': _id})
+    elif subject == 'column':
+        cursor.execute("""DELETE FROM cards
+                          WHERE status_id = %(_id)s""", {'_id': _id})
+        cursor.execute("""DELETE FROM statuses
+                          WHERE id = %(_id)s""", {'_id': _id})
+    elif subject == 'card':
+        cursor.execute("""DELETE FROM cards
+                          WHERE id = %(_id)s""", {'_id': _id})
 
 
 #-----------------------------
