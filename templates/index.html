@@ -70,13 +70,15 @@
             <div class="col-12">
                 <div id="accordion">
                     <div class="card">
-                    <div class="card-header" id="heading-1" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                    <div class="card-header" data-toggle="collapse" data-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                        <div class="card-title" id="heading-1"></div>
+                        <a class="btn btn-danger float-right"  data-id="3" data-target="board">DELETE</a>
                     </div>
 
                 <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion">
                     <div class="card-body">
                       <div class="button-row">
-                        <button type="button" class="btn btn-primary" id="new-card">New card</button>
+                        <button class="btn btn-primary" id="new-card" data-toggle="modal" data-target="#newCardModal">New card</button>
                         </div>
                       <div class="row text-center">
 
@@ -163,6 +165,31 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newCardModal" tabindex="-1" role="dialog" aria-labelledby="newCardModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newCardModalLabel">New card</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="new-card-form" method="post" action="{{ url_for('add_new_card') }}" role="form">
+                    <input type="hidden" value="1" name="board-modal-id">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="card-modal-title">Title of card:</label>
+                            <input type="text" class="form-control" id="card-modal-title" name="card-modal-title">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="new-card-save" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </form>

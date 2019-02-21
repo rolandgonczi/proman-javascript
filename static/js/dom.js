@@ -35,8 +35,4 @@ export let dom = {
         let status = table.querySelector('#status'+cards.status_id)
         status.appendChild(showElement)
     }
-
-
-};
-
-
+}
