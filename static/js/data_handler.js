@@ -17,8 +17,7 @@ export let data_handler = {get_boards: fetch('http://127.0.0.1:5000/get-boards')
         for(let board of data){
             createBoard(board)
         }
-    }
-    )
+    }),
 };
 
 // //this object contains the functions which handle the data and its reading/writing
