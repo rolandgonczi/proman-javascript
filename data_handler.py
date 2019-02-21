@@ -29,9 +29,9 @@ def sign_in(cursor, username, password):
 """CARDS"""
 
 @connection.connection_handler
-def add_new_card(cursor, card_name, status_id, position):
-    cursor.execute("""INSERT INTO cards (title, status_id, position)
-                      VALUES (%(card_name)s, %(status_id)s, %(position)s)""", {'card_name': card_name, 'status_id': status_id, 'position': position})
+def add_new_card(cursor, card_name, board_id, status_id):
+    cursor.execute("""INSERT INTO cards (title, board_id, status_id)
+                      VALUES (%(card_name)s, %(board_id)s, %(status_id)s)""", {'card_name': card_name, 'board_id': board_id, 'status_id': status_id})
 
 
 @connection.connection_handler

@@ -44,13 +44,20 @@ def route_logout():
 
 """CARD HANDLING"""
 
+
 @app.route('/card', methods=['POST'])
 def add_new_card():
+    card_title = request.form['card-modal-title']
+    board_id = request.form['board-modal-id']
+    status_id = 0
+    data_handler.add_new_card(card_title, board_id, status_id)
+    return card_title
+    """
     card_name = request.json.get('cardName')
     board_column_id = request.json.get('boardColumnId')
     position = request.json.get('position')
     data_handler.add_new_card(card_name, board_column_id, position)
-    return json.dumps({'attempt': 'successful'})
+    return json.dumps({'attempt': 'successful'})"""
 
 
 @app.route('/update-card-column-id', methods=['POST'])
@@ -75,7 +82,7 @@ def get_boards():
     """
     All the boards
     """
-    title = data_handler.get_boards()
+    title = data_handler.get_all_boards()
     return title
 
 

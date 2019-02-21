@@ -179,10 +179,11 @@
                     </button>
                 </div>
                 <form id="new-card-form" method="post" action="{{ url_for('add_new_card') }}" role="form">
+                    <input type="hidden" value="1" name="board-modal-id">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="card-title">Title of card:</label>
-                            <input type="text" class="form-control" id="card-title" name="card-title">
+                            <label for="card-modal-title">Title of card:</label>
+                            <input type="text" class="form-control" id="card-modal-title" name="card-modal-title">
                         </div>
                     </div>
                     <div class="modal-footer">

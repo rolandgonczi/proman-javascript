@@ -24,5 +24,11 @@ export function createBoard(board) {
     document.querySelector('#container').appendChild(createElement);
 
 }
-
+/*
+export function createCard(card) {
+    const newCardButton = document.getElementById('new-card-save');
+    newCardButton.addEventListener('click', function (event) {
+        createCard(card.title)
+    });
+} */
 
