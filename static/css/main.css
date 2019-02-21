@@ -44,6 +44,10 @@ body {
     font-size: 2rem;
 }
 
+.card-title, .btn {
+    display: inline;
+    vertical-align: auto;
+}
 
 .card-title {
     color: white;

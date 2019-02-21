@@ -76,7 +76,6 @@ def get_boards():
     All the boards
     """
     title = data_handler.get_all_boards()
-    print(title)
     return title
 
 
@@ -92,6 +91,12 @@ def add_board():
 @json_response
 def delete_board(board_id: int):
     data_handler.delete_board(board_id)
+
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    data_handler.delete(request.json.get('subject'), request.json.get('id'))
+    return json.dumps({'attempt': 'successful'})
 
 
 @app.route("/get-cards/<int:board_id>")
