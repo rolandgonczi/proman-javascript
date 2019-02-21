@@ -34,5 +34,11 @@ export let dom = {
 
     }
 }
-
+/*
+export function createCard(card) {
+    const newCardButton = document.getElementById('new-card-save');
+    newCardButton.addEventListener('click', function (event) {
+        createCard(card.title)
+    });
+} */
 

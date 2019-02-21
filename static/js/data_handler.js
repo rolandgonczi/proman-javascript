@@ -29,6 +29,16 @@ export let data_handler = {
             })},
 }
 
+/*
+export let card_handler = {get_boards: fetch('http://127.0.0.1:5000/card')  // set the path; the method is GET by default, but can be modified with a second parameter
+.then((response) => response.json())  // parse JSON format into JS object
+.then((data) =>{
+        for(let card of data){
+            createCard(card)
+        }
+    }),
+};*/
+
 // //this object contains the functions which handle the data and its reading/writing
 // // feel free to extend and change to fit your needs
 //
