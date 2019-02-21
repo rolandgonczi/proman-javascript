@@ -28,17 +28,11 @@ export let dom = {
     createBoard: function (board) {
         const createElement = createTable(board.title, board.id);
         document.querySelector('#container').appendChild(createElement);
-    }, showCard: function (cards) {
-        const showElement = createCard(cards.title, cards.board_id, cards.status_id)
-        document.getElementById(cards.status_id).appendChild(showElement)
-
+    },
+    showCard: function (cards) {
+        const showElement = createCard(cards.title, cards.board_id, cards.status_id);
+        let table = document.getElementById('collapse-' + cards.board_id);
+        let status = table.querySelector('#status'+cards.status_id)
+        status.appendChild(showElement)
     }
 }
-/*
-export function createCard(card) {
-    const newCardButton = document.getElementById('new-card-save');
-    newCardButton.addEventListener('click', function (event) {
-        createCard(card.title)
-    });
-} */
-

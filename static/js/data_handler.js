@@ -16,15 +16,14 @@ export let data_handler = {
         .then((response) => response.json())  // parse JSON format into JS object
         .then((data) => {
             for (let board of data) {
-                dom.createBoard(board)
-                data_handler.get_cards(board)
+                dom.createBoard(board);
+                data_handler.get_cards(board);
             }
             }), get_cards: function(board){ fetch('http://127.0.0.1:5000/get-cards/'+ board.id)  // set the path; the method is GET by default, but can be modified with a second parameter
             .then((response) => response.json())  // parse JSON format into JS object
             .then((data) => {
                 for (let cards of data) {
                     dom.showCard(cards)
-                    console.log(cards)
                 }
             })},
 }
