@@ -3,6 +3,10 @@ import connection
 import security
 
 
+#-----------------------------
+#  USER
+#-----------------------------
+
 @connection.connection_handler
 def sign_up(cursor, username, password):
     cursor.execute("""
@@ -18,6 +22,50 @@ def sign_in(cursor, username, password):
         WHERE username = %(username)s
     """, {"username": username, "password": password})
     return cursor.fetchone()
+
+
+#-----------------------------
+#  BOARDS
+#-----------------------------
+
+@connection.connection_handler
+def get_all_boards(cursor):
+    cursor.execute("""
+    SELECT * FROM boards;""")
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def add_new_board(cursor, board_title):
+    cursor.execute("""
+                    INSERT into boards (title) VALUES %(board_title)s;
+                    """,
+                   {'board_title': board_title})
+    return cursor.fetchone()
+
+
+@connection.connection_handler
+def delete_board(cursor, board_id):
+    cursor.execute("""
+                    SELECT id FROM cards
+                    WHERE board_id = %(id)s;
+                    """,
+                   {'id': board_id})
+    card_ids = cursor.fetchall()
+    for card_id in card_ids:
+        cursor.execute("""
+                        DELETE FROM cards WHERE id = %(card_id)s;
+                        """,
+                       {'card_id': card_id}) #  here we can call DELETE cards function written by Roland
+    cursor.execute("""
+                    DELETE FROM boards WHERE id = %(board_id)s;
+                    """,
+                   {'board_id': board_id})
+
+
+#-----------------------------
+#  ORIGINAL SKELETON CODE
+#-----------------------------
 
 
 def get_card_status(status_id):

@@ -44,7 +44,23 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_boards()
+    title = data_handler.get_boards()
+    return title
+
+
+@app.route("/new-board", methods=['GET', 'POST'])
+@json_response
+def add_board():
+    if request.method == 'POST':
+        board_title = request.form['title']
+        data_handler.add_new_board(board_title)
+        return render_template(url_for('index'), board_title=board_title)
+
+
+@app.route("/delete-board/<int:board_id>")
+@json_response
+def delete_board(board_id: int):
+    data_handler.delete_board(board_id)
 
 
 @app.route("/get-cards/<int:board_id>")
@@ -67,3 +83,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
