@@ -41,6 +41,8 @@ def route_logout():
 
 """END OF USER HANDLING"""
 
+"""blablabla"""
+
 """CARD HANDLING"""
 
 @app.route('/card', methods=['POST'])
