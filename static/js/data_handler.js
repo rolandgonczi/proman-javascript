@@ -9,16 +9,25 @@
 //
 // request.open('GET', 'http://127.0.0.1:5000/get-boards');  // set the method and the path
 // request.send();  // actually fire the Request
-import {createBoard} from "./dom.js";
+import {dom} from "./dom.js";
 
-export let data_handler = {get_boards: fetch('http://127.0.0.1:5000/get-boards')  // set the path; the method is GET by default, but can be modified with a second parameter
-.then((response) => response.json())  // parse JSON format into JS object
-.then((data) =>{
-        for(let board of data){
-            createBoard(board)
-        }
-    }),
-};
+export let data_handler = {
+    get_boards: fetch('http://127.0.0.1:5000/get-boards')  // set the path; the method is GET by default, but can be modified with a second parameter
+        .then((response) => response.json())  // parse JSON format into JS object
+        .then((data) => {
+            for (let board of data) {
+                dom.createBoard(board)
+                data_handler.get_cards(board)
+            }
+            }), get_cards: function(board){ fetch('http://127.0.0.1:5000/get-cards/'+ board.id)  // set the path; the method is GET by default, but can be modified with a second parameter
+            .then((response) => response.json())  // parse JSON format into JS object
+            .then((data) => {
+                for (let cards of data) {
+                    dom.showCard(cards)
+                    console.log(cards)
+                }
+            })},
+}
 
 /*
 export let card_handler = {get_boards: fetch('http://127.0.0.1:5000/card')  // set the path; the method is GET by default, but can be modified with a second parameter

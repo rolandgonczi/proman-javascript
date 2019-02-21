@@ -87,12 +87,11 @@ def get_boards():
 
 
 @app.route("/new-board", methods=['GET', 'POST'])
-@json_response
 def add_board():
     if request.method == 'POST':
         board_title = request.form['title']
         data_handler.add_new_board(board_title)
-        return render_template(url_for('index'), board_title=board_title)
+        return redirect(url_for('index'))
 
 
 @app.route("/delete-board/<int:board_id>")
@@ -109,7 +108,7 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
 
-    return data_handler.get_cards_for_board(board_id)
+    return data_handler.get_cards_by_board_id(board_id)
 
 
 def main():
