@@ -31,7 +31,7 @@ def sign_in(cursor, username, password):
 @connection.connection_handler
 def get_all_boards(cursor):
     cursor.execute("""
-    SELECT title FROM boards;""")
+    SELECT * FROM boards;""")
     return cursor.fetchall()
 
 

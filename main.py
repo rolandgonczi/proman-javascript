@@ -44,7 +44,8 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_all_boards()
+    title = data_handler.get_boards()
+    return title
 
 
 @app.route("/new-board", methods=['GET', 'POST'])
@@ -82,3 +83,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
