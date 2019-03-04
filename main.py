@@ -52,12 +52,6 @@ def add_new_card():
     status_id = 0
     data_handler.add_new_card(card_title, board_id, status_id)
     return redirect(url_for('index'))
-    """
-    card_name = request.json.get('cardName')
-    board_column_id = request.json.get('boardColumnId')
-    position = request.json.get('position')
-    data_handler.add_new_card(card_name, board_column_id, position)
-    return json.dumps({'attempt': 'successful'})"""
 
 
 @app.route('/update-card-column-id', methods=['POST'])
