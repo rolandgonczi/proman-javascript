@@ -47,11 +47,13 @@ def route_logout():
 
 @app.route('/card', methods=['POST'])
 def add_new_card():
-    card_title = request.form['card-modal-title']
-    board_id = request.form['board-modal-id']
-    status_id = 0
-    data_handler.add_new_card(card_title, board_id, status_id)
-    return redirect(url_for('index'))
+    if request.method == 'POST':
+        board_id = request.form['board-modal-id']
+        card_title = request.form['card-modal-title']
+        print(board_id)
+        status_id = 0
+        data_handler.add_new_card(card_title, board_id, status_id)
+        return redirect(url_for('index'))
     """
     card_name = request.json.get('cardName')
     board_column_id = request.json.get('boardColumnId')
