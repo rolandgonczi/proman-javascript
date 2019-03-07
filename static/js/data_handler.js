@@ -18,15 +18,68 @@ export let data_handler = {
             for (let board of data) {
                 dom.createBoard(board);
                 data_handler.get_cards(board);
-            }
-            }), get_cards: function(board){ fetch('http://127.0.0.1:5000/get-cards/'+ board.id)  // set the path; the method is GET by default, but can be modified with a second parameter
+                data_handler.get_board_id()
+                data_handler.updateName()
+                }
+            data_handler.deleteBoard()
+            data_handler.dragula()
+        }),
+    get_cards: function (board) {
+        fetch('http://127.0.0.1:5000/get-cards/' + board.id)  // set the path; the method is GET by default, but can be modified with a second parameter
             .then((response) => response.json())  // parse JSON format into JS object
             .then((data) => {
                 for (let cards of data) {
                     dom.showCard(cards)
                 }
-            })},
+            })
+    },
+
+    get_board_id: function () {
+        dom.createNewCard()
+    },
+    post_del_id: function (url = ``, del_id = {}) {
+        return fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(del_id)
+        })
+    },
+    deleteBoard: function () {
+        let deleteButtons = document.querySelectorAll('.btn-danger')
+        for (let delButton of deleteButtons) {
+            delButton.addEventListener('click', function () {
+                let del_id = this.dataset.id
+                data_handler.post_del_id('http://127.0.0.1:5000/delete-board', {'id': del_id})
+                window.location.reload(false)
+            })
+
+        }
+
+
+    },
+    updateName: function () {
+        let titles = document.querySelectorAll('.card-title')
+        for(let title of titles ){
+            title.addEventListener('click', function () {
+            let boardId = title.nextElementSibling.dataset.id;
+            title.innerHTML = `<form method="post" action="/update-board">
+                               <input type="text" name="rename-board">
+                               <input type="hidden" name="id" value="${boardId}">
+                                </form> `
+
+            })
+        }
+    },
+    dragula: function () {
+        dragula([document.getElementById("status0"),document.getElementById("status1"),document.getElementById("status2"),document.getElementById("status3")])
+
+    }
 }
+
+
+
 
 /*
 export let card_handler = {get_boards: fetch('http://127.0.0.1:5000/card')  // set the path; the method is GET by default, but can be modified with a second parameter

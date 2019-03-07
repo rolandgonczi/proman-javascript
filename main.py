@@ -47,11 +47,18 @@ def route_logout():
 
 @app.route('/card', methods=['POST'])
 def add_new_card():
-    card_title = request.form['card-modal-title']
-    board_id = request.form['board-modal-id']
-    status_id = 0
-    data_handler.add_new_card(card_title, board_id, status_id)
-    return redirect(url_for('index'))
+    if request.method == 'POST':
+        board_id = request.form['board-modal-id']
+        card_title = request.form['card-modal-title']
+        status_id = 0
+        data_handler.add_new_card(card_title, board_id, status_id)
+        return redirect(url_for('index'))
+    """
+    card_name = request.json.get('cardName')
+    board_column_id = request.json.get('boardColumnId')
+    position = request.json.get('position')
+    data_handler.add_new_card(card_name, board_column_id, position)
+    return json.dumps({'attempt': 'successful'})"""
 
 
 @app.route('/update-card-column-id', methods=['POST'])
@@ -88,9 +95,10 @@ def add_board():
         return redirect(url_for('index'))
 
 
-@app.route("/delete-board/<int:board_id>")
+@app.route("/delete-board", methods=['GET', 'POST'])
 @json_response
-def delete_board(board_id: int):
+def delete_board():
+    board_id = request.get_json()['id']
     data_handler.delete_board(board_id)
 
 
@@ -109,6 +117,18 @@ def get_cards_for_board(board_id: int):
     """
 
     return data_handler.get_cards_by_board_id(board_id)
+
+
+@app.route("/update-board", methods=['POST', 'GET'])
+def update_board_name():
+    if request.method == 'POST':
+        board_id = request.form['id']
+        title = request.form['rename-board']
+        print(board_id)
+        print(title)
+        data_handler.update_board_name(board_id, title)
+        return redirect(url_for('index'))
+    return redirect(url_for('index'))
 
 
 def main():

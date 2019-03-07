@@ -98,7 +98,7 @@ def delete_board(cursor, board_id):
         cursor.execute("""
                         DELETE FROM cards WHERE id = %(card_id)s;
                         """,
-                       {'card_id': card_id}) #  here we can call DELETE cards function written by Roland
+                       {'card_id': card_id['id']}) #  here we can call DELETE cards function written by Roland
     cursor.execute("""
                     DELETE FROM boards WHERE id = %(board_id)s;
                     """,
@@ -131,35 +131,9 @@ def delete(cursor, subject, _id):
                           WHERE id = %(_id)s""", {'_id': _id})
 
 
-#-----------------------------
-#  ORIGINAL SKELETON CODE
-#-----------------------------
-
-
-def get_card_status(status_id):
-    """
-    Find the first status matching the given id
-    :param status_id:
-    :return: str
-    """
-    statuses = persistence.get_statuses()
-    return next((status['title'] for status in statuses if status['id'] == str(status_id)), 'Unknown')
-
-
-def get_boards():
-    """
-    Gather all boards
-    :return:
-    """
-    return persistence.get_boards(force=True)
-
-
-def get_cards_for_board(board_id):
-    persistence.clear_cache()
-    all_cards = persistence.get_cards()
-    matching_cards = []
-    for card in all_cards:
-        if card['board_id'] == str(board_id):
-            card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
-            matching_cards.append(card)
-    return matching_cards
+@connection.connection_handler
+def update_board_name(cursor, board_id, title):
+    cursor.execute("""UPDATE boards
+                      SET title = %(title)s
+                      WHERE id = %(board_id)s
+                    """, {'title': title, 'board_id': board_id})
