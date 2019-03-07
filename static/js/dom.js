@@ -45,7 +45,11 @@ export let dom = {
                 modal_board_id.setAttribute('value', board_id)
 
             })
+
         }
 
-    }
+    },
+
 }
+
+

@@ -31,8 +31,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js' defer></script>
     <script type="module" src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
     <script type="module" src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='js/dragula.js') }}" defer></script>
 
 
 </head>
@@ -98,19 +101,19 @@
                             </div>
                             <div class="row text-center">
 
-                                <div class="col-3 col-md cards m-1 new-card" id="status0">
+                                <div class="col-3 col-md cards m-1 new-card drop-elements" id="status0">
                                     <div class="card-header">New Card</div>
                                 </div>
 
-                                <div class="col-3 col-md cards m-1" id="status1">
+                                <div class="col-3 col-md cards m-1 drop-target" id="status1">
                                     <div class="card-header">In progress</div>
                                 </div>
 
-                                <div class="col-3 col-md cards m-1" id="status2">
+                                <div class="col-3 col-md cards m-1 drop-target" id="status2">
                                     <div class="card-header">Testing</div>
                                 </div>
 
-                                <div class="col-3 col-md cards m-1" id="status3">
+                                <div class="col-3 col-md cards m-1 drop-target" id="status3">
                                     <div class="card-header">Done</div>
                                 </div>
 
