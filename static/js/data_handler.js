@@ -15,14 +15,16 @@ export let data_handler = {
     get_boards: fetch('http://127.0.0.1:5000/get-boards')  // set the path; the method is GET by default, but can be modified with a second parameter
         .then((response) => response.json())  // parse JSON format into JS object
         .then((data) => {
+            let columnId = 0
             for (let board of data) {
-                dom.createBoard(board);
+                columnId += 5;
+                dom.createBoard(board, columnId);
                 data_handler.get_cards(board);
                 data_handler.get_board_id()
                 data_handler.updateName()
                 }
             data_handler.deleteBoard()
-            data_handler.dragula()
+
         }),
     get_cards: function (board) {
         fetch('http://127.0.0.1:5000/get-cards/' + board.id)  // set the path; the method is GET by default, but can be modified with a second parameter
@@ -72,10 +74,10 @@ export let data_handler = {
             })
         }
     },
-    dragula: function () {
-        dragula([document.getElementById("status0"),document.getElementById("status1"),document.getElementById("status2"),document.getElementById("status3")])
+    // dragula: function () {
+    //     dragula([document.getElementById("status0"),document.getElementById("status1"),document.getElementById("status2"),document.getElementById("status3")])
 
-    }
+    // }
 }
 
 
